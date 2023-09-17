@@ -46,7 +46,7 @@ if __name__ == "__main__":
     for row in result:
         print(row)
     
-    update_stmt = stations_table.update().where(stations_table.c.elevation == 3).values(name="Waikiki")
+    update_stmt = update(stations_table).where(stations_table.c.elevation == 3).values(name="Waikiki")
     conn.execute(update_stmt)
 
     select_update = select([stations_table]).where(stations_table.c.elevation == 3)
