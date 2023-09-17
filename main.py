@@ -39,8 +39,8 @@ if __name__ == "__main__":
     conn = engine.connect()
     metadata.create_all(engine)
 
-    stations_data = import_data(conn, "clean_stations.csv", stations_table)
-    measure_data = import_data(conn, "clean_measure.csv", measure_table)
+    import_data(conn, "clean_stations.csv", stations_table)
+    import_data(conn, "clean_measure.csv", measure_table)
 
     result = conn.execute("SELECT * FROM stations LIMIT 5").fetchall()
     for row in result:
