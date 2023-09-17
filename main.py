@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Table, Column, Integer, String, Float, MetaData
+from sqlalchemy import create_engine, Table, Column, Integer, String, Float, MetaData, update, select, delete
 
 metadata = MetaData()
 
@@ -45,5 +45,21 @@ if __name__ == "__main__":
     result = conn.execute("SELECT * FROM stations LIMIT 5").fetchall()
     for row in result:
         print(row)
-        
+    
+    update_stmt = stations_table.update().where(stations_table.c.elevation == 3).values(name="Waikiki")
+    conn.execute(update_stmt)
+
+    select_update = select([stations_table]).where(stations_table.c.elevation == 3)
+    update_result = conn.execute(select_update)
+    for row in update_result:
+        print(row)
+
+    delete_stmt = delete(stations_table).where(stations_table.c.elevation > 7)
+    conn.execute(delete_stmt)
+    
+    select_stmt = select([stations_table])
+    delete_result = conn.execute(select_stmt)
+    for row in delete_result:
+        print(row)
+
     conn.close()
