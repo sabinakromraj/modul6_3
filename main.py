@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Table, Column, Integer, String, Float, MetaData, update, select, delete
+from sqlalchemy import create_engine, Table, Column, Integer, String, Float, MetaData, insert, update, select, delete
 
 metadata = MetaData()
 
@@ -31,7 +31,7 @@ def import_data(conn, filecsv, destination):
             line = line.replace("\n", "")
             line = line.replace("\r", "")
             data = tuple(line.split(","))
-            conn.execute(destination.insert().values(data))
+            conn.execute(insert(destination).values(data))
 
 
 if __name__ == "__main__":
